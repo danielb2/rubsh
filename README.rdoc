@@ -1,0 +1,12 @@
+= Rubsh
+
+Rubsh was created to be a native shell for ruby users. A irb which can also be
+used as a normal shell without the akwardness of some of the features of bash
+and other shells, and with the power of ruby.
+
+= Installation
+
+sudo gem source -a http://gemcutter.org
+sudo gem install rubsh
+
+Run rubsh on the commandline. Type help for a quick overview of usage.
