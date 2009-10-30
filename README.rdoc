@@ -6,7 +6,79 @@ and other shells, and with the power of ruby.
 
 = Installation
 
-sudo gem source -a http://gemcutter.org
-sudo gem install rubsh
+  sudo gem source -a http://gemcutter.org
+  sudo gem install rubsh
 
 Run rubsh on the commandline. Type help for a quick overview of usage.
+
+= Features
+
+* readline support
+* tab completion
+* aliases
+* commandline history
+
+= Usage
+
+== aliases
+
+ralias aliases a command.
+
+Example:
+ ralias 'ls ls -Gh'
+
+Currently an alias will not be parsed to include other aliases. i.e.
+doing <tt>ralias 'ls ls -Gh'</tt> followed by <tt>ralias 'll ls -l'</tt> will not get you 'ls -lGh'
+
+== .rubsh/rc.rb
+
+Define your own functions, aliases etc in the rc file. It's included to the environment.
+
+== Shortcuts
+
+While normal commands as 'ls' etc work transparantly, you can also do things like:
+
+  '*'.ls
+
+shortcut for Dir.glob(...)
+
+  '*'.ls.du
+
+Does du on all the results
+
+It also takes arguments:
+
+  '*'.ls.du(:sh)
+
+is equivalent to du -sh *
+
+== Prompt
+
+use ENV['PR1'] to set your prompt.  see 'help prompt' for options from within the shell.
+
+  %h  - hostname
+  %u  - the username of the current user
+  %w  - the current working directory, with $HOME abbreviated with a tilde
+  %W  - the basename of the current working directory, with $HOME abbreviated
+  with a tilde
+  %Cb - blue color
+  %Cc - cyan color
+  %Cg - green color
+  %CC - color reset
+  %t  - the current time in 24-hour HH:MM:SS format
+  %%  - literal %
+  %$  - if the effective UID is 0, a #, otherwise a $
+
+  Example: ENV['PR1'] = "[%u@%h]--(%t)\n\r[%w]%$ "
+
+== Commandline functions
+
+Commandline functions must currently be defined as one-liners. They also take an argument, which
+is what was typed to invoke the command.
+
+ def test(*a); p a;end
+ $ test foo #=> ["test foo"]
+
+
+
+
